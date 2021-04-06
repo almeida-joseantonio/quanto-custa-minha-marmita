@@ -9,7 +9,7 @@ class Ingredient {
 
   price: string;
 
-  constructor(name: string, amount: string, price: string) {
+  constructor({ name, amount, price }: Omit<Ingredient, 'id'>) {
     this.id = uuid();
     this.name = name;
     this.amount = amount;

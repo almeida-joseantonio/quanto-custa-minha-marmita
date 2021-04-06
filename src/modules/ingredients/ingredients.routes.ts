@@ -1,17 +1,15 @@
 import { Router } from 'express';
 
-import Ingredient from './ingredient.entity';
+import IngredientsRepository from './ingredients.repository';
 
 const ingredientsRouter = Router();
 
-const ingredients: Ingredient[] = [];
+const ingredientsRepository = new IngredientsRepository();
 
 ingredientsRouter.post('/', (request, response) => {
   const { name, amount, price } = request.body;
 
-  const ingredient = new Ingredient(name, amount, price);
-
-  ingredients.push(ingredient);
+  const ingredient = ingredientsRepository.create({ name, amount, price });
 
   return response.json(ingredient);
 });
