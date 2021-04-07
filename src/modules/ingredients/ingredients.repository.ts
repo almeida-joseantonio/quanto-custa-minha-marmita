@@ -1,24 +1,23 @@
+import { EntityRepository, Repository } from 'typeorm';
+
 import Ingredient from './ingredient.entity';
 
 interface CreateIngredientDTO {
-  name: string;
-  amount: string;
-  price: string;
+  ingredientName: string;
+  ingredientAmount: number;
+  ingredientPrice: number;
 }
 
-class IngredientsRepository {
-  private ingredients: Ingredient[];
+@EntityRepository(Ingredient)
+class IngredientsRepository extends Repository<Ingredient> {
+  public async findById(ingredientId: string): Promise<Ingredient | undefined> {
+    const findById = await this.findOne({
+      where: {
+        ingredientId,
+      },
+    });
 
-  constructor() {
-    this.ingredients = [];
-  }
-
-  public create({ name, amount, price }: CreateIngredientDTO): Ingredient {
-    const ingredient = new Ingredient({ name, amount, price });
-
-    this.ingredients.push(ingredient);
-
-    return ingredient;
+    return findById || undefined;
   }
 }
 

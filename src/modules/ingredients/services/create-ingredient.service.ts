@@ -1,25 +1,29 @@
+import { getCustomRepository } from 'typeorm';
+
 import Ingredient from '../ingredient.entity';
 import IngredientsRepository from '../ingredients.repository';
 
 interface IRequest {
-  name: string;
-  amount: string;
-  price: string;
+  ingredientName: string;
+  ingredientAmount: number;
+  ingredientPrice: number;
 }
 
 class CreateIngredientService {
-  private ingredientsRepository: IngredientsRepository;
+  public async execute({
+    ingredientName,
+    ingredientAmount,
+    ingredientPrice,
+  }: IRequest): Promise<Ingredient> {
+    const ingredientsRepository = getCustomRepository(IngredientsRepository);
 
-  constructor(ingredientsRepository: IngredientsRepository) {
-    this.ingredientsRepository = ingredientsRepository;
-  }
-
-  public execute({ name, amount, price }: IRequest): Ingredient {
-    const ingredient = this.ingredientsRepository.create({
-      name,
-      amount,
-      price,
+    const ingredient = ingredientsRepository.create({
+      ingredientName,
+      ingredientAmount,
+      ingredientPrice,
     });
+
+    await ingredientsRepository.save(ingredient);
 
     return ingredient;
   }

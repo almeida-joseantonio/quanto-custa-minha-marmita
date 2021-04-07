@@ -1,20 +1,44 @@
-import { v4 as uuidv4 } from 'uuid';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
+} from 'typeorm';
 
+@Entity('ingredients')
 class Ingredient {
-  id: string;
+  @PrimaryGeneratedColumn('uuid', { name: 'ingredient_id' })
+  ingredientId: string;
 
-  name: string;
+  @Column({ name: 'ingredient_name' })
+  ingredientName: string;
 
-  amount: string;
+  @Column({
+    name: 'ingredient_amount',
+    type: 'decimal',
+    precision: 12,
+    scale: 2,
+  })
+  ingredientAmount: number;
 
-  price: string;
+  @Column({
+    name: 'ingredient_price',
+    type: 'decimal',
+    precision: 12,
+    scale: 2,
+  })
+  ingredientPrice: number;
 
-  constructor({ name, amount, price }: Omit<Ingredient, 'id'>) {
-    this.id = uuidv4();
-    this.name = name;
-    this.amount = amount;
-    this.price = price;
-  }
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
+
+  @DeleteDateColumn({ name: 'deleted_at' })
+  deletedAt: Date;
 }
 
 export default Ingredient;
