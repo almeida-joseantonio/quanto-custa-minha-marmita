@@ -1,32 +1,11 @@
 import { Router } from 'express';
-import { getCustomRepository } from 'typeorm';
-
-import IngredientsRepository from './ingredients.repository';
-import CreateIngredientService from './services/create-ingredient.service';
+import IngredientsController from './ingredients.controller';
 
 const ingredientsRouter = Router();
 
-// const ingredientsRepository = new IngredientsRepository();
+const ingredientsController = new IngredientsController();
 
-ingredientsRouter.get('/', async (request, response) => {
-  const ingredientsRepository = getCustomRepository(IngredientsRepository);
-  const ingredients = await ingredientsRepository.find();
-
-  return response.json(ingredients);
-});
-
-ingredientsRouter.post('/', async (request, response) => {
-  const { ingredientName, ingredientAmount, ingredientPrice } = request.body;
-
-  const createIngredient = new CreateIngredientService();
-
-  const ingredient = await createIngredient.execute({
-    ingredientName,
-    ingredientAmount,
-    ingredientPrice,
-  });
-
-  return response.json(ingredient);
-});
+// ingredientsRouter.get('/', ingredientsController.index);
+ingredientsRouter.post('/', ingredientsController.create);
 
 export default ingredientsRouter;
