@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import ingredientsRoutes from './modules/ingredients/ingredients.routes';
-import recipesRoutes from './modules/recipes/recipes.routes';
+import ingredientsRoutes from '../../modules/ingredients/ingredients.routes';
+import recipesRoutes from '../../modules/recipes/recipes.routes';
 
 const routes = Router();
 
