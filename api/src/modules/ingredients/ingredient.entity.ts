@@ -7,6 +7,8 @@ import {
   DeleteDateColumn,
 } from 'typeorm';
 
+export type IngredientUnitType = 'un' | 'g' | 'ml';
+
 @Entity('ingredients')
 class Ingredient {
   @PrimaryGeneratedColumn('uuid', { name: 'ingredient_id' })
@@ -22,6 +24,13 @@ class Ingredient {
     scale: 2,
   })
   ingredientAmount: number;
+
+  @Column({
+    name: 'ingredient_unit',
+    type: 'enum',
+    enum: ['un', 'g', 'ml'],
+  })
+  ingredientUnit: IngredientUnitType;
 
   @Column({
     name: 'ingredient_price',

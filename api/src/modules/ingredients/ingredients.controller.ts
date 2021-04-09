@@ -2,24 +2,31 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import CreateIngredientService from './services/create-ingredient.service';
+import ListIngredientsService from './services/list-ingredient.service';
 
 export default class IngredientsController {
-  // public async index(request: Request, response: Response): Promise<Response> {
-  //   const listIngredients = container.resolve(ListIngredientsService);
+  public async index(request: Request, response: Response): Promise<Response> {
+    const listIngredients = container.resolve(ListIngredientsService);
 
-  //   const ingredients = await listIngredients.execute({});
+    const ingredients = await listIngredients.execute();
 
-  //   return response.status(200).json(ingredients);
-  // }
+    return response.status(200).json(ingredients);
+  }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { ingredientName, ingredientAmount, ingredientPrice } = request.body;
+    const {
+      ingredientName,
+      ingredientAmount,
+      ingredientUnit,
+      ingredientPrice,
+    } = request.body;
 
     const createIngredient = container.resolve(CreateIngredientService);
 
     const ingredient = await createIngredient.execute({
       ingredientName,
       ingredientAmount,
+      ingredientUnit,
       ingredientPrice,
     });
 

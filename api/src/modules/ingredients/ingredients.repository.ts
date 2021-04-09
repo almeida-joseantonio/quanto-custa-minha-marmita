@@ -1,10 +1,11 @@
 import { getRepository, Repository } from 'typeorm';
 
-import Ingredient from './ingredient.entity';
+import Ingredient, { IngredientUnitType } from './ingredient.entity';
 
 interface CreateIngredientDTO {
   ingredientName: string;
   ingredientAmount: number;
+  ingredientUnit: IngredientUnitType;
   ingredientPrice: number;
 }
 
@@ -18,11 +19,13 @@ class IngredientsRepository {
   public async create({
     ingredientName,
     ingredientAmount,
+    ingredientUnit,
     ingredientPrice,
   }: CreateIngredientDTO): Promise<Ingredient> {
     const ingredient = this.ormRepository.create({
       ingredientName,
       ingredientAmount,
+      ingredientUnit,
       ingredientPrice,
     });
 
@@ -39,6 +42,12 @@ class IngredientsRepository {
     });
 
     return findById || undefined;
+  }
+
+  public async findAll(): Promise<Ingredient[]> {
+    const ingredients = await this.ormRepository.find();
+
+    return ingredients;
   }
 }
 

@@ -26,6 +26,12 @@ export default class CreateIngredients1617817012779
             isNullable: true,
           },
           {
+            name: 'ingredient_unit',
+            type: 'enum',
+            enum: ['un', 'g', 'ml'],
+            isNullable: true,
+          },
+          {
             name: 'ingredient_price',
             type: 'decimal(12,2)',
             isNullable: true,

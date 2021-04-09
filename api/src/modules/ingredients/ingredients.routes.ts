@@ -5,7 +5,7 @@ const ingredientsRouter = Router();
 
 const ingredientsController = new IngredientsController();
 
-// ingredientsRouter.get('/', ingredientsController.index);
+ingredientsRouter.get('/', ingredientsController.index);
 ingredientsRouter.post('/', ingredientsController.create);
 
 export default ingredientsRouter;
