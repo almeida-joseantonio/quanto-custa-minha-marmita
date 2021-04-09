@@ -1,9 +1,11 @@
 import { Router } from 'express';
+import RecipesController from './recipes.controller';
 
 const recipesRouter = Router();
 
-recipesRouter.post('/', (request, response) => {
-  return response.json({ messa: 'Hello World' });
-});
+const recipesController = new RecipesController();
+
+recipesRouter.get('/', recipesController.index);
+recipesRouter.post('/', recipesController.create);
 
 export default recipesRouter;

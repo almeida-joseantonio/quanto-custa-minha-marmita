@@ -34,15 +34,15 @@ class IngredientsRepository {
     return ingredient;
   }
 
-  public async findById(ingredientId: string): Promise<Ingredient | undefined> {
-    const findById = await this.ormRepository.findOne({
-      where: {
-        ingredientId,
-      },
-    });
+  // public async findById(ingredientId: string): Promise<Ingredient | undefined> {
+  //   const findById = await this.ormRepository.findOne({
+  //     where: {
+  //       ingredientId,
+  //     },
+  //   });
 
-    return findById || undefined;
-  }
+  //   return findById || undefined;
+  // }
 
   public async findAll(): Promise<Ingredient[]> {
     const ingredients = await this.ormRepository.find();
